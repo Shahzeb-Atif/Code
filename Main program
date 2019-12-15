@@ -1,0 +1,198 @@
+from random import*
+import time
+steps = 22
+sentence = 2
+money  = 1000
+
+counter = 0
+
+[pos1, pos2, pos3, pos4] = [0, 0, 0, 0]
+
+gamemode = 0
+
+
+
+crimes = choice(["fraud","theft","recklessness","assault","murder","manslaughter"])
+
+def dice(): #Rolls the dice 
+    dice1 = randint(1,6)
+    return dice1
+
+def jail(sentence):
+    print()
+    for x in range(sentence):
+        print("You are still in jail!")
+        sentence = sentence - 1
+
+
+def dare_devil(money,position):
+    dares = choice(["1","2","3","4","5"])
+    if dares == "1":
+        print("You won the gamble against the devil!")
+        money = money + 2000
+        
+    elif dares == "2":
+        print("You lost the gamble against the devil!")
+        money = money - 2000
+
+    elif dares == "3":
+        print("You gained rocket booster!")
+        position = position + 3
+        
+    elif dares == "4":
+        print("Your gained stiff upper lip!")
+        position = position - 3
+        
+    elif dares == "5":
+        print("You achieved a spectacular prize!")
+        money = money + 10000
+
+
+def facebook(money,position):
+    print("You have reached facebook!")
+    value = choice(2,1.5,1,0.5,0)
+    money = money*value
+    return money
+
+def microsoft(money,position):
+    print("You have reached micosoft")
+    value = choice(2,1.5,1,0.5,0)
+    money = money*value
+    return money
+
+def apple(money,position):
+    print("You ")
+
+
+
+
+
+class Person:
+    def __init__(self, money, position, number):
+        self.money = money
+        self.pos = position
+        self.num = number
+        
+    
+        
+    def turn(self):
+        counter = dice()
+        self.pos += counter
+        print("")
+        
+        if self.pos == 6:
+            print("Player has been found guilty of",crimes ,"and had received a prison sentence!")
+            jail(sentence)
+            
+        elif self.pos == 12:
+            print("Player has an opportunity to make an investment!")
+            Person.stocks(self)
+        elif self.pos > 20 or self.pos == 20:
+            self.pos -= 20
+
+        elif self.pos == 18:
+            print("You have reached Devil's dare!!")
+            dare_devil(self.money, self.pos)
+
+        print(self.money, self.pos, self.num)
+
+    def stocks(self):
+        investment = input("""Which one of the following five companies would you like to invest in:
+                         1. Apple
+                         2. Google
+                         3. Samsung
+                         4. Facebook
+                         5. Microsoft
+                        """)
+        if investment == "1":
+            value = 2
+        elif investment == "2":
+            value = 1.5
+        elif investment == "3":
+            value = 1
+        elif investment == "4":
+            value = 0.75
+        elif investment == "5":
+            value = 0.5
+        self.money *= value
+        return self.money
+    
+    
+
+
+
+def maingameloop():
+    global pos1, pos2, pos3, pos4
+    p1 = Person(money,pos1,1)
+    p2 = Person(money,pos2,2)
+    p3 = Person(money,pos3,3)
+    p4 = Person(money,pos4,4)
+    players = [p1, p2, p3, p4]
+
+    print("Player's turn.....")
+    time.sleep(0.7)
+    for k in range(20):
+        for i in players:
+            print(Person.turn(i))
+            '''
+            for x in range(1):
+                if i%4 == 1:
+                    return p1
+                elif i%4 == 2:
+                    return p2
+                elif i%4 == 3:
+                    return p3
+                else:
+                    return p4
+               '''
+            '''
+            if p1.money%4 == 1:
+                return p1
+            elif p2.money%4 == 2:
+                return p2
+            elif p3.money%4 == 3:
+                return p3
+            else:
+                return p4
+
+            if p1.pos%4 == 1:
+                return p1
+            elif p2.pos%4 == 2:
+                return p2
+            elif p3.pos%4 == 3:
+                return p3
+            else:
+                return p4
+            '''
+            print("Player: " + str(tempFunc(i)))
+            time.sleep(1)
+        
+def tempFunc(i):
+    if i.money%4 == 1:
+        return i
+    if i.pos%4 == 1:
+        return i
+
+
+maingameloop()
+                
+##def DifferentPlayers(numbers):
+##    for x in range(number): #The main game loop
+##        while money > 0:
+##            print("Round",turn)
+##            time.sleep(0.5)
+##            sentence = 2
+##            if position ==6:
+##                jail(sentence)
+##            else:
+##                print("Player",x+1,"'s turn!")
+##                print("Rolling the Dice......")
+##                counter = dice(number)
+##                print("You rolled number",counter)
+##                position = position + counter
+##                if position > 22 or position == 22:
+##                    position = position - 22
+##                    turns = turns + 1
+##                print("Your position is",position)
+
+
